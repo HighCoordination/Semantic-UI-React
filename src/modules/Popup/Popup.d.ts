@@ -31,16 +31,13 @@ export interface StrictPopupProps extends StrictPortalProps {
   /** A disabled popup only renders its trigger. */
   disabled?: boolean
 
-  /** Enables the Popper.js event listeners. */
-  eventsEnabled?: boolean
-
   /** A flowing Popup has no maximum width and continues to flow to fit its content. */
   flowing?: boolean
 
   /** Header displayed above the content in bold. */
   header?: SemanticShorthandItem<PopupHeaderProps>
 
-  /** Hide the Popup when scrolling the window. */
+  /** The node where the popup should mount. */
   hideOnScroll?: boolean
 
   /** Whether the popup should not close on hover. */
@@ -49,14 +46,11 @@ export interface StrictPopupProps extends StrictPortalProps {
   /** Invert the colors of the popup */
   inverted?: boolean
 
-  /** Offset value to apply to rendered popup. Accepts the following units:
-   * - px or unit-less, interpreted as pixels
-   * - %, percentage relative to the length of the trigger element
-   * - %p, percentage relative to the length of the popup element
-   * - vw, CSS viewport width unit
-   * - vh, CSS viewport height unit
-   */
-  offset?: number | string
+  /** Horizontal offset in pixels to be applied to the popup. */
+  horizontalOffset?: number
+
+  /** Vertical offset in pixels to be applied to the popup. */
+  verticalOffset?: number
 
   /** Events triggering the popup. */
   on?: 'hover' | 'click' | 'focus' | ('hover' | 'click' | 'focus')[]
@@ -93,9 +87,6 @@ export interface StrictPopupProps extends StrictPortalProps {
    */
   onUnmount?: (nothing: null, data: PopupProps) => void
 
-  /** Disables automatic repositioning of the component, it will always be placed according to the position value. */
-  pinned?: boolean
-
   /** Position for the popover. */
   position?:
     | 'top left'
@@ -106,15 +97,6 @@ export interface StrictPopupProps extends StrictPortalProps {
     | 'left center'
     | 'top center'
     | 'bottom center'
-
-  /** Tells `Popper.js` to use the `position: fixed` strategy to position the popover. */
-  positionFixed?: boolean
-
-  /** An object containing custom settings for the Popper.js modifiers. */
-  popperModifiers?: object
-
-  /** A popup can have dependencies which update will schedule a position update. */
-  popperDependencies?: any[]
 
   /** Popup size. */
   size?: 'mini' | 'tiny' | 'small' | 'large' | 'huge'
@@ -127,6 +109,9 @@ export interface StrictPopupProps extends StrictPortalProps {
 
   /** Popup width. */
   wide?: boolean | 'very'
+
+  /** Element to be rendered within the confines of the viewport whenever possible. */
+  keepInViewPort?: boolean
 }
 
 interface PopupComponent extends React.ComponentClass<PopupProps> {
